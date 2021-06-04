@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject settings;
     private float widthBound, heightBound;
     private Vector3 playerSize;
-    public float bulletNumber = 1;
+    public float bulletNumber = 5;
     void Awake()
     {
         settings = GameObject.Find("Game Settings");
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         Vector3 pos = transform.position;
+
         //PC Control
         if (Input.GetKey(KeyCode.LeftArrow) && pos.x > -widthBound + playerSize.x / 2)
             pos.x -= playerSpeed * Time.deltaTime;
@@ -31,10 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            for (int i = 0; i < bulletNumber; i++)
-            {
-                Instantiate(bullet, new Vector3(pos.x, pos.y + playerSize.y / 2, 0), Quaternion.identity);
-            }
+            Instantiate(bullet, new Vector3(pos.x, pos.y + playerSize.y / 2, 0), Quaternion.identity);
         }
 
         transform.position = pos;

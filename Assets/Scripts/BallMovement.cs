@@ -8,6 +8,9 @@ public class BallMovement : MonoBehaviour
     private float ballSpeed = 600.0f;
     private float ballAngle = 70;
     private float widthSpeed;
+
+    private int health = 10;
+
     void Start()
     {
 
@@ -28,11 +31,22 @@ public class BallMovement : MonoBehaviour
             ballAngle = 180 - ballAngle;
             this.GetComponent<Rigidbody2D>().velocity = velocity;
         }
+
         else
         {
             this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             this.GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Cos(Mathf.Deg2Rad * ballAngle), Mathf.Sin(Mathf.Deg2Rad * ballAngle)) * ballSpeed);
             
         }
+    }
+
+    public void setHealth(int newHealth)
+    {
+        health = newHealth;
+    }
+
+    public int getHealth()
+    {
+        return health;
     }
 }

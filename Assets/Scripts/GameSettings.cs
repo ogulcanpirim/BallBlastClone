@@ -23,6 +23,8 @@ public class GameSettings : MonoBehaviour
             {
                 if (go.transform.position.y > screenHeight + 2.0f)
                     Destroy(go);
+                if (go.gameObject.GetComponent<BulletMovement>().triggered)
+                    Destroy(go);
             }
         }
         
