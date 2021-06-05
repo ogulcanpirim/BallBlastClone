@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -43,12 +44,14 @@ public class PlayerMovement : MonoBehaviour
             nextBulletTime += bulletPeriod;
         }
         transform.position = pos;
-
+        
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("vuruldum !");
+        //freeze scene
+        Time.timeScale = 0;
+        
     }
 }
