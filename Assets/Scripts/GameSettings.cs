@@ -15,6 +15,7 @@ public class GameSettings : MonoBehaviour
 
         //Floor
         GameObject floor = Instantiate(cube, Vector3.zero, Quaternion.identity);
+        floor.GetComponent<SpriteRenderer>().enabled = false;
         floor.transform.localScale = new Vector3(screenWidth * 2, 0.5f, 0);
         float size = floor.GetComponent<SpriteRenderer>().bounds.size.y;
         floor.transform.position = new Vector3(0,-(screenWidth / 2) + size / 2,0);
