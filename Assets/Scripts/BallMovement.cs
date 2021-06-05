@@ -10,7 +10,7 @@ public class BallMovement : MonoBehaviour
     private float ballAngle = 70;
     private float widthSpeed;
     private int firstHealth;
-    private int health = 80;
+    private int health = 10;
     private GameObject ballHealth;
     void Start()
     {

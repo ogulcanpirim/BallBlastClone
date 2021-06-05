@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject bullet;
-    private float playerSpeed = 5.0f;
+    private float playerSpeed = 15.0f;
     private GameObject settings;
     private float widthBound, heightBound;
     private Vector3 playerSize;
