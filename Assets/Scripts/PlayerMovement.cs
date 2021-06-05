@@ -13,7 +13,11 @@ public class PlayerMovement : MonoBehaviour
     public float bulletNumber = 5;
     public float bulletPeriod = 0.15f;
     private float nextBulletTime = 0.0f;
-    
+
+    private bool finished = false;
+    private bool isMoving = false;
+    private Rigidbody2D rb;
+    private Vector3 playerPos;
     void Awake()
     {
         settings = GameObject.Find("Game Settings");
@@ -25,33 +29,51 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        rb = GetComponent<Rigidbody2D>();
+        playerPos = rb.position;
+        
+        isMoving = Input.GetMouseButton(0);
 
-        Vector3 pos = transform.position;
-
-        //PC Control
+        if (isMoving)
+        {
+            playerPos.x = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;    
+        }
+        /*PC Control
         if (Input.GetKey(KeyCode.LeftArrow) && pos.x > -widthBound + playerSize.x / 2)
             pos.x -= playerSpeed * Time.deltaTime;
         else if (Input.GetKey(KeyCode.RightArrow) && pos.x < widthBound - playerSize.x / 2)
             pos.x += playerSpeed * Time.deltaTime;
-
-        /*Space Control
-        if (Input.GetKeyDown(KeyCode.Space))
-            Instantiate(bullet, new Vector3(pos.x, pos.y + playerSize.y / 2, 0), Quaternion.identity);
         */
-        if (Time.time > nextBulletTime)
+        
+        
+        if (Time.time > nextBulletTime && isMoving)
         {
-            Instantiate(bullet, new Vector3(pos.x, pos.y + playerSize.y / 2, 0), Quaternion.identity);
+            Instantiate(bullet, new Vector3(playerPos.x, playerPos.y + playerSize.y / 2, 0), Quaternion.identity);
             nextBulletTime += bulletPeriod;
         }
-        transform.position = pos;
-        
 
+    }
+
+    void FixedUpdate()
+    {
+        Debug.Log("fixed update");
+        if (isMoving)
+        {
+            Debug.Log("geldi");
+            this.GetComponent<Rigidbody2D>().MovePosition(Vector2.Lerp(rb.position, playerPos, playerSpeed * Time.fixedDeltaTime));
+        }
+        else if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //freeze scene
+        /*
         Time.timeScale = 0;
-        
+        finished = true;
+        */
     }
 }
