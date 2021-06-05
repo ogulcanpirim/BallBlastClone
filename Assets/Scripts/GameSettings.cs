@@ -18,11 +18,12 @@ public class GameSettings : MonoBehaviour
         floor.GetComponent<SpriteRenderer>().enabled = false;
         floor.transform.localScale = new Vector3(screenWidth * 2, 0.5f, 0);
         float size = floor.GetComponent<SpriteRenderer>().bounds.size.y;
-        floor.transform.position = new Vector3(0,-(screenWidth / 2) + size / 2,0);
+        floor.transform.position = new Vector3(0, -(screenHeight) - size / 2, 0);
         floor.name = "Floor";
 
         //Left Wall
         GameObject leftWall = Instantiate(cube, Vector3.zero, Quaternion.Euler(new Vector3(0,0,90)));
+        leftWall.GetComponent<SpriteRenderer>().enabled = false;
         leftWall.transform.localScale = new Vector3(screenHeight * 2, 0.5f, 0);
         size = leftWall.GetComponent<SpriteRenderer>().bounds.size.x;
         leftWall.transform.position = new Vector3(-(screenWidth) - size / 2, 0, 0);
@@ -30,6 +31,7 @@ public class GameSettings : MonoBehaviour
 
         //Right Wall
         GameObject rightWall = Instantiate(cube, Vector3.zero, Quaternion.Euler(new Vector3(0, 0, 90)));
+        rightWall.GetComponent<SpriteRenderer>().enabled = false;
         rightWall.transform.localScale = new Vector3(screenHeight * 2, 0.5f, 0);
         size = rightWall.GetComponent<SpriteRenderer>().bounds.size.x;
         rightWall.transform.position = new Vector3(+(screenWidth) + size / 2, 0, 0);

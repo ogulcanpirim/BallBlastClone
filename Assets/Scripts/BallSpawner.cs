@@ -16,7 +16,6 @@ public class BallSpawner : MonoBehaviour
         width = settings.GetComponent<GameSettings>().screenWidth;
         height = settings.GetComponent<GameSettings>().screenHeight;
         spawnHeight = height * 0.60f;
-        Debug.Log("width:" + width);
         generateNewBall();
     }
  
