@@ -10,6 +10,10 @@ public class BallSpawner : MonoBehaviour
     public GameObject settings;
     public GameObject ball;
     private GameObject newBall;
+    private int nextBall = 1;
+    
+    
+
     void Awake()
     {
         settings = GameObject.Find("Game Settings");
@@ -17,6 +21,7 @@ public class BallSpawner : MonoBehaviour
         height = settings.GetComponent<GameSettings>().screenHeight;
         spawnHeight = height * 0.60f;
         generateNewBall();
+        
     }
  
     void Update()
@@ -25,8 +30,10 @@ public class BallSpawner : MonoBehaviour
         if (newBall != null && !inScreen(newBall))
         {
             Vector3 pos = newBall.transform.position;
-            pos.x += ballEnterSpeed * Time.deltaTime;
+           
+            pos.x += nextBall*ballEnterSpeed  * Time.deltaTime;
             newBall.transform.position = pos;
+            
         }
 
         if (newBall != null && inScreen(newBall))
@@ -34,14 +41,19 @@ public class BallSpawner : MonoBehaviour
             newBall.GetComponent<CircleCollider2D>().enabled = true;
             newBall.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
+        FindBall();
+
+        
     }
 
 
     void generateNewBall()
     {
-        newBall = Instantiate(ball, new Vector3(-width * 1.3f, spawnHeight, 0), Quaternion.identity);
+        nextBall *= -1;
+        newBall = Instantiate(ball, new Vector3(-width * 1.3f*nextBall, spawnHeight, 0), Quaternion.identity);
         newBall.GetComponent<CircleCollider2D>().enabled = false;
         newBall.GetComponent<Rigidbody2D>().gravityScale = 0;
+        
         
     }
 
@@ -50,6 +62,17 @@ public class BallSpawner : MonoBehaviour
         Vector2 size = go.GetComponent<SpriteRenderer>().bounds.size;
         if ((go.transform.position.x > -width + size.x / 2) && (go.transform.position.x < width - size.x / 2))
             return true;
+            
         return false;
+        
+    }
+
+    void FindBall()
+    {
+        GameObject ballEx;
+        ballEx = GameObject.Find("Ball(Clone)");
+        if (ballEx == null)
+        generateNewBall();
+       
     }
 }
