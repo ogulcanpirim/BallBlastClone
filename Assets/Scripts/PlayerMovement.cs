@@ -48,18 +48,23 @@ public class PlayerMovement : MonoBehaviour
         
         if (Time.time > nextBulletTime && isMoving)
         {
-            Instantiate(bullet, new Vector3(playerPos.x, playerPos.y + playerSize.y / 2, 0), Quaternion.identity);
+            Instantiate(bullet, new Vector3(playerPos.x, playerPos.y + playerSize.y, 0), Quaternion.identity);
             nextBulletTime += bulletPeriod;
+        }
+
+        //Play Again
+        if (Input.GetKeyDown(KeyCode.Space) && finished)
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Main");
         }
 
     }
 
     void FixedUpdate()
     {
-        Debug.Log("fixed update");
         if (isMoving)
         {
-            Debug.Log("geldi");
             this.GetComponent<Rigidbody2D>().MovePosition(Vector2.Lerp(rb.position, playerPos, playerSpeed * Time.fixedDeltaTime));
         }
         else if (rb != null)
@@ -71,9 +76,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //freeze scene
-        /*
         Time.timeScale = 0;
         finished = true;
-        */
+        
     }
 }
