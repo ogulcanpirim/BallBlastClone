@@ -36,7 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving)
         {
-            playerPos.x = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;    
+            float newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+            if ((newPosition > -widthBound + playerSize.x / 2) && (newPosition < widthBound - playerSize.x / 2))
+                playerPos.x = newPosition;
+                 
         }
         /*PC Control
         if (Input.GetKey(KeyCode.LeftArrow) && pos.x > -widthBound + playerSize.x / 2)
